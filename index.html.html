@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>👑 إلى زينب 👑</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Tahoma, sans-serif;
+  background:linear-gradient(135deg,#ff9ed6,#ffd6f4,#ffe9fb);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ===== خلفيات (ما تعطل اللمس) ===== */
+.bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* قلوب */
+.heart{position:absolute;color:#ff2f87;animation:up linear infinite}
+@keyframes up{from{transform:translateY(100vh)}to{transform:translateY(-10vh)}}
+
+/* قطط */
+.cat{position:absolute;font-size:26px;animation:fall linear infinite}
+@keyframes fall{from{transform:translateY(-10vh)}to{transform:translateY(110vh)}}
+
+/* ===== المحتوى ===== */
+main{position:relative;z-index:5}
+
+section{padding:90px 20px;text-align:center}
+
+.box{
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(12px);
+  border-radius:25px;
+  padding:35px;
+  max-width:900px;
+  margin:auto;
+  box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+h1{font-size:clamp(38px,7vw,70px);margin-bottom:15px}
+h2{font-size:30px;margin-bottom:15px}
+p{font-size:20px;line-height:1.8}
+
+/* ===== أزرار ===== */
+.btn{
+  margin-top:18px;
+  padding:14px 28px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ff4da6,#ff2f87);
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+  transition:.2s;
+}
+.btn:active{transform:scale(.95)}
+
+/* ===== بطاقات ===== */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+  margin-top:25px;
+}
+
+.card{
+  background:rgba(255,255,255,.25);
+  padding:20px;
+  border-radius:18px;
+  cursor:pointer;
+  transition:.2s;
+}
+.card:active{transform:scale(.92)}
+
+/* ===== نافذة ===== */
+.popup{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.5);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:.3s;
+  z-index:20;
+}
+.popup.show{opacity:1;pointer-events:auto}
+
+.popup-box{
+  background:linear-gradient(135deg,#ff7fbf,#ff4da6);
+  padding:35px;border-radius:20px;text-align:center
+}
+
+/* ===== عداد ===== */
+.counter{font-size:55px;font-weight:bold;margin-top:10px}
+
+footer{
+  text-align:center;
+  padding:40px;
+  background:rgba(0,0,0,.25)
+}
+</style>
+</head>
+
+<body>
+
+<!-- خلفيات -->
+<div class="bg" id="bg"></div>
+
+<main>
+
+<section>
+  <div class="box">
+    <h1>👑 إلى زينب 👑</h1>
+    <p>هذه الصفحة هدية خاصة لك 💖 لأنك صديقة لا تتكرر 🌸</p>
+    <button class="btn" onclick="showMsg()">اضغطي هنا 🎁</button>
+  </div>
+</section>
+
+<section>
+  <div class="box">
+    <h2>مستوى السعادة 💕</h2>
+    <div class="counter" id="counter">0</div>
+    <button class="btn" onclick="boost()">زيدي السعادة 💗</button>
+  </div>
+</section>
+
+<section>
+  <div class="box">
+    <h2>أشياء أحبها فيك 🌷</h2>
+
+    <div class="cards">
+      <div class="card" onclick="showMsg()">💗 قلبك</div>
+      <div class="card" onclick="showMsg()">🌸 لطفك</div>
+      <div class="card" onclick="showMsg()">✨ ضحكتك</div>
+      <div class="card" onclick="showMsg()">👑 روحك</div>
+      <div class="card" onclick="showMsg()">🌈 وجودك</div>
+      <div class="card" onclick="showMsg()">🎀 اهتمامك</div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="box">
+    <h2>تحكم بالموقع 🎮</h2>
+    <button class="btn" onclick="rainCats()">تشغيل مطر القطط 😺</button>
+    <button class="btn" onclick="rainHearts()">تشغيل القلوب 💖</button>
+    <button class="btn" onclick="toggleDark()">الوضع الليلي 🌙</button>
+  </div>
+</section>
+
+</main>
+
+<!-- نافذة -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h2>💖 أنتِ صديقة لا تُعوّض 💖</h2>
+    <p>وجودك نعمة في حياتي 🌸</p>
+    <button class="btn" onclick="hideMsg()">إغلاق</button>
+  </div>
+</div>
+
+<footer>
+  👑 صُنع بكل الحب لزينب 👑
+</footer>
+
+<script>
+
+/* نافذة */
+function showMsg(){popup.classList.add("show")}
+function hideMsg(){popup.classList.remove("show")}
+
+/* عداد */
+let n=0
+function boost(){
+  n+=Math.floor(Math.random()*10)+5
+  counter.textContent=n+" 💗"
+}
+
+/* مطر قطط */
+function rainCats(){
+  for(let i=0;i<20;i++){
+    let c=document.createElement("div")
+    c.className="cat"
+    c.textContent="😺"
+    c.style.left=Math.random()*100+"%"
+    c.style.animationDuration=(5+Math.random()*5)+"s"
+    bg.appendChild(c)
+  }
+}
+
+/* قلوب */
+function rainHearts(){
+  for(let i=0;i<20;i++){
+    let h=document.createElement("div")
+    h.className="heart"
+    h.textContent="❤"
+    h.style.left=Math.random()*100+"%"
+    h.style.animationDuration=(6+Math.random()*6)+"s"
+    bg.appendChild(h)
+  }
+}
+
+/* وضع ليلي */
+function toggleDark(){
+  if(document.body.style.background.includes("linear")){
+    document.body.style.background="#1a1a1a"
+  }else{
+    document.body.style.background="linear-gradient(135deg,#ff9ed6,#ffd6f4,#ffe9fb)"
+  }
+}
+
+</script>
+
+</body>
+</html>
